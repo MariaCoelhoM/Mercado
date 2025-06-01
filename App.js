@@ -6,6 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Login from './telas/Login';
+import { AuthProvider } from './Context/auth/AuthProvider';
 import TabsTela1 from './navegacao/TabsTela1';
 import DrawerNavigator from './navegacao/DrawerNavigator';
 
@@ -13,6 +14,7 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
+  <AuthProvider>
     <SafeAreaProvider>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Login" screenOptions={{ headerShown: false }}>
@@ -22,6 +24,7 @@ export default function App() {
         </Stack.Navigator>
       </NavigationContainer>
     </SafeAreaProvider>
+  </AuthProvider>
   );
 }
 

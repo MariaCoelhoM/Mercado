@@ -1,8 +1,11 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image, Linking, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useAuth } from '../Context/auth/useAuth'
 
 export default function About({ navigation }) {
+    const { user, setUser } = useAuth();
+
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.titulo}>Sobre o App 🛒</Text>
@@ -22,7 +25,7 @@ export default function About({ navigation }) {
         Projeto da disciplina de Desenvolvimento de Aplicações Móveis.
       </Text>
 
-      <TouchableOpacity onPress={() => Linking.openURL('https://github.com/seu-usuario')}>
+      <TouchableOpacity onPress={() => Linking.openURL('https://github.com/MariaCoelhoM/Mercado')}>
         <Text style={styles.link}>Ver no GitHub</Text>
       </TouchableOpacity>
 

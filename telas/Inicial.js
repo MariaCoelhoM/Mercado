@@ -3,10 +3,23 @@ import React, { useState, useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../FirebaseConfig';
+import { auth } from '../FirebaseConfig';
+import { getAuth } from 'firebase/auth';
+import { useAuth } from '../Context/auth/useAuth';
 
 export default function Inicial({ navigation }) {
   const [data, setData] = useState([]);
 
+  getAuth().onAuthStateChanged((user) =>{
+    if(!user)
+      navigation.reset({
+        index:0,
+        routes:[{name: 'Login'}]
+    })
+  });
+  const handleLogout =async ()=>{
+    auth.sig
+  }
   useEffect(() => {
     carregarDados();
   }, []);
