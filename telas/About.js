@@ -11,7 +11,7 @@ export default function About({ navigation }) {
       <Text style={styles.titulo}>Sobre o App 🛒</Text>
 
       <Image
-        //source={require('../assets/sacola.png')} // troque por uma imagem existente na pasta assets
+        source={require('../assets/logo.png.png')} // troque por uma imagem existente na pasta assets
         style={styles.imagem}
       />
 
@@ -52,8 +52,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   imagem: {
-    width: 120,
-    height: 120,
+    width: 240,
+    height: 240,
     marginBottom: 20,
   },
   texto: {

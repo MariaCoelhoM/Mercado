@@ -25,7 +25,7 @@ export default function TabsTela1() {
         component={Carrinho}
         />
         <Tab.Screen
-        name='User'
+        name='Úsuario'
         component={User}
         />
   </Tab.Navigator>

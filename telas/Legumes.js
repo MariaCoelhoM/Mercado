@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../FirebaseConfig';
 
-export default function Legumes({ navigation }) {
+export default function Vegetais({ navigation }) {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -13,10 +13,10 @@ export default function Legumes({ navigation }) {
 
   const carregarDados = async () => {
     try {
-      const querySnapshot = await getDocs(collection(db, 'Legumes'));
-      const legumes = [];
+      const querySnapshot = await getDocs(collection(db, 'Vegetais'));
+      const vegetais = [];
       querySnapshot.forEach((doc) => {
-        legumes.push({
+        vegetais.push({
           id: doc.id,
           titulo: doc.data().titulo,
           descricao: doc.data().descricao,
@@ -24,7 +24,7 @@ export default function Legumes({ navigation }) {
           imagem: doc.data().imagem
         });
       });
-      setData(legumes);
+      setData(vegetais);
     } catch (error) {
       console.error("Erro ao carregar dados", error);
     }

@@ -32,7 +32,7 @@ export default function Raizes({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.titulo}>Raizes Frescos 🥦</Text>
+      <Text style={styles.titulo}>Raizes Frescos 🥔</Text>
       <FlatList
         data={data}
         keyExtractor={item => item.id}

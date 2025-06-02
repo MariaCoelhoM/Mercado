@@ -4,7 +4,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../FirebaseConfig';
 
-export default function Vegetais({ navigation }) {
+export default function Embutidos({ navigation }) {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -13,10 +13,10 @@ export default function Vegetais({ navigation }) {
 
   const carregarDados = async () => {
     try {
-      const querySnapshot = await getDocs(collection(db, 'Vegetais'));
-      const vegetais = [];
+      const querySnapshot = await getDocs(collection(db, 'Embutidos'));
+      const embutidos = [];
       querySnapshot.forEach((doc) => {
-        vegetais.push({
+        embutidos.push({
           id: doc.id,
           titulo: doc.data().titulo,
           descricao: doc.data().descricao,
@@ -24,7 +24,7 @@ export default function Vegetais({ navigation }) {
           imagem: doc.data().imagem
         });
       });
-      setData(vegetais);
+      setData(embutidos);
     } catch (error) {
       console.error("Erro ao carregar dados", error);
     }
@@ -32,7 +32,7 @@ export default function Vegetais({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.titulo}>Vegetais Frescos 🥬</Text>
+      <Text style={styles.titulo}>Embutidos Frescos 🥓</Text>
       <FlatList
         data={data}
         keyExtractor={item => item.id}

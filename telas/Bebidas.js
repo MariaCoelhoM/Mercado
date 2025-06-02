@@ -32,7 +32,7 @@ export default function Bebidas({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.titulo}>Legumes Frescos 🥦</Text>
+      <Text style={styles.titulo}>Bêbidas Frescos ☕</Text>
       <FlatList
         data={data}
         keyExtractor={item => item.id}
