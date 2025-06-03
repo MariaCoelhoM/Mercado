@@ -1,8 +1,9 @@
 import React from 'react';
-import { StyleSheet, View, Text, Image, Linking, TouchableOpacity } from 'react-native';
+import { StyleSheet, View, Text, Image, Linking, TouchableOpacity,ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAuth } from '../Context/auth/useAuth'
 import styles from '../estilos/AboutStyles.js';
+import { FlatList } from 'react-native-gesture-handler';
 
 export default function About({ navigation }) {
     const { user, setUser } = useAuth();
@@ -15,7 +16,7 @@ export default function About({ navigation }) {
         source={require('../assets/logo.png (1).png')} // troque por uma imagem existente na pasta assets
         style={styles.imagem}
       />
-
+      <ScrollView>
       <Text style={styles.texto}>
         Este aplicativo foi desenvolvido para tornar suas compras no supermercado mais práticas e econômicas. 
         Com promoções sempre atualizadas, você pode aproveitar os melhores preços com facilidade. 
@@ -27,6 +28,7 @@ export default function About({ navigation }) {
         Desenvolvido com 💙 por Maria Eduarda.{"\n"}
         Projeto da disciplina de Desenvolvimento de Aplicações Móveis.
       </Text>
+      </ScrollView>
 
       <TouchableOpacity onPress={() => Linking.openURL('https://github.com/MariaCoelhoM/Mercado')}>
         <Text style={styles.link}>Ver no GitHub</Text>
