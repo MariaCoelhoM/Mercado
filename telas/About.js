@@ -12,7 +12,7 @@ export default function About({ navigation }) {
       <Text style={styles.titulo}>Sobre o App 🛒</Text>
 
       <Image
-        source={require('../assets/logo.png.png')} // troque por uma imagem existente na pasta assets
+        source={require('../assets/logo.png (1).png')} // troque por uma imagem existente na pasta assets
         style={styles.imagem}
       />
 

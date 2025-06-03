@@ -1,26 +1,27 @@
-import { StyleSheet, Text, View, TextInput, Button, FlatList, TouchableOpacity, Modal, ScrollView ,Image} from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, FlatList, TouchableOpacity, Modal, ScrollView, Image } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { db } from '../FirebaseConfig';
-import { collection, addDoc, getDocs} from 'firebase/firestore';
+import { collection, addDoc, getDocs } from 'firebase/firestore';
 import styles from '../estilos/CarrinhosStyles.js';
 
 export default function Carrinhos({ navigation }) {
-  const [itensCardapio,setItensCardapio] = useState([]);
+  const [itensCardapio, setItensCardapio] = useState([]);
   const [endereco, setEndereco] = useState('');
+  const [erroEndereco, setErroEndereco] = useState('');
   const [itensCarrinho, setItensCarrinho] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
-  
+
   const carregarCardapio = async () => {
     try {
-      const colecoes = ['Bebidas', 'Embutidos', 'Frutas', 'Legumes','Vegetais','Limpeza'];
+      const colecoes = ['Bebidas', 'Embutidos', 'Frutas', 'Legumes', 'Vegetais', 'Limpeza', 'Raizes'];
       let itensTotais = [];
       for (const nomeColecao of colecoes) {
         const snapshot = await getDocs(collection(db, nomeColecao));
         const itens = snapshot.docs.map(doc => ({
           id: doc.id,
           titulo: doc.titulo,
-          preco : doc.preco,
+          preco: doc.preco,
           ...doc.data()
         }));
         itensTotais = [...itensTotais, ...itens];
@@ -32,8 +33,8 @@ export default function Carrinhos({ navigation }) {
   };
 
   const adicionarItemAoCarrinho = (item) => {
-    setItensCarrinho([...itensCarrinho,item]);
-  }
+    setItensCarrinho([...itensCarrinho, item]);
+  };
 
   const removerItem = (index) => {
     const novaLista = [...itensCarrinho];
@@ -46,7 +47,18 @@ export default function Carrinhos({ navigation }) {
   };
 
   const adicionarCarrinho = async () => {
-    if (!endereco || itensCarrinho.length === 0) return;
+    if (!endereco.trim()) {
+      setErroEndereco('Por favor, preencha o endereço de entrega.');
+      return;
+    } else {
+      setErroEndereco('');
+    }
+
+    if (itensCarrinho.length === 0) {
+      alert('Adicione pelo menos um item ao carrinho.');
+      return;
+    }
+
     try {
       await addDoc(collection(db, 'Carrinho'), {
         endereco,
@@ -55,7 +67,7 @@ export default function Carrinhos({ navigation }) {
       setEndereco('');
       setItensCarrinho([]);
       setModalVisible(false);
-      alert('Carrinho salvo com sucesso!')
+      alert('Carrinho salvo com sucesso!');
     } catch (error) {
       console.error("Erro ao adicionar Carrinho: ", error);
     }
@@ -69,14 +81,16 @@ export default function Carrinhos({ navigation }) {
     <SafeAreaView style={styles.container}>
       <ScrollView>
         <Text style={styles.titulo}>Carrinhos</Text>
-        <TouchableOpacity style={styles.botaoNovo} onPress={()=> setModalVisible(true)}>
+
+        <TouchableOpacity style={styles.botaoNovo} onPress={() => setModalVisible(true)}>
           <Text style={styles.textoBotao}>Novo Carrinho</Text>
         </TouchableOpacity>
-        
+
         <Modal visible={modalVisible} animationType="slide">
           <SafeAreaView style={styles.container}>
             <ScrollView>
               <Text style={styles.titulo}>Novo Carrinho</Text>
+
               <TextInput
                 placeholder="Endereço de entrega"
                 value={endereco}
@@ -84,7 +98,10 @@ export default function Carrinhos({ navigation }) {
                 style={styles.input}
                 placeholderTextColor="#999"
               />
-              
+              {erroEndereco ? (
+                <Text style={{ color: 'red', marginBottom: 10 }}>{erroEndereco}</Text>
+              ) : null}
+
               <Text style={styles.subtitulo}>Itens do Cardápio:</Text>
               <FlatList
                 data={itensCardapio}
@@ -94,13 +111,13 @@ export default function Carrinhos({ navigation }) {
                 style={{ height: 300 }}
                 renderItem={({ item }) => (
                   <TouchableOpacity onPress={() => adicionarItemAoCarrinho(item)} style={styles.cardProduto}>
-                    <Image source={{ uri: item.imagem }} style={styles.imagemProduto}/>
+                    <Image source={{ uri: item.imagem }} style={styles.imagemProduto} />
                     <Text style={styles.nomeProduto}>{item.titulo}</Text>
                     <Text style={styles.precoProduto}>R$ {item.preco}</Text>
                   </TouchableOpacity>
                 )}
               />
-              
+
               <Text style={styles.subtitulo}>Itens Selecionados:</Text>
               <FlatList
                 data={itensCarrinho}
@@ -117,15 +134,15 @@ export default function Carrinhos({ navigation }) {
                   </View>
                 )}
               />
-              
+
               <Text style={styles.total}>
                 Total: R$ {calcularTotal()}
               </Text>
-              
+
               <TouchableOpacity style={styles.botaoSalvar} onPress={adicionarCarrinho}>
                 <Text style={styles.textoBotao}>Salvar Carrinho</Text>
               </TouchableOpacity>
-              
+
               <TouchableOpacity style={styles.botaoCancelar} onPress={() => setModalVisible(false)}>
                 <Text style={styles.textoBotaoCancelar}>Cancelar</Text>
               </TouchableOpacity>

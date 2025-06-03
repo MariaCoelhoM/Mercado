@@ -14,6 +14,10 @@ const styles = StyleSheet.create({
     marginBottom: 30,
     color: '#333',
   },
+   imagem: {
+    width: 200,
+    height: 200,
+  },
   input: {
     width: '100%',
     padding: 12,

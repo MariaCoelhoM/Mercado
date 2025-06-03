@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TextInput, Pressable, SafeAreaView, Alert } from 'react-native';
+import { StyleSheet, Text, TextInput, Pressable, SafeAreaView, Alert, Image } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { auth } from '../FirebaseConfig';
 import { signInWithEmailAndPassword, createUserWithEmailAndPassword, onAuthStateChanged } from 'firebase/auth'
@@ -67,6 +67,8 @@ export default function Login({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
+      <Image source={require('../assets/logo.png (1).png')} 
+             style={styles.imagem}/>
       <Text style={styles.title}>🔐 Bem-vindo!</Text>
 
       <TextInput
