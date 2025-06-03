@@ -11,6 +11,7 @@ import Bebidas from '../telas/Bebidas';
 import Embutidos from '../telas/Embutidos';
 import Frutas from '../telas/Frutas';
 import TabsTela1 from './TabsTela1';
+import Carrinhos from '../telas/Carrinho';
 
 const Drawer = createDrawerNavigator();
 
@@ -25,6 +26,7 @@ export default function DrawerNavigator() {
       }}
     >
     <Drawer.Screen name="Tabs" component={TabsTela1} options={{ title: 'Início' }} />
+    <Drawer.Screen name="Seu carrinho" component={Carrinhos}/>
     <Drawer.Screen name="Vegetais" component={Vegetais}/>
     <Drawer.Screen name="Legumes" component={Legumes}/>
     <Drawer.Screen name="Frutas" component={Frutas}/>
@@ -37,7 +39,6 @@ export default function DrawerNavigator() {
     </Drawer.Navigator>
   );
 }
-/// qual começa tita a linha     <Drawer.Navigator initialRouteName="Tabs"/> 
 
 
      

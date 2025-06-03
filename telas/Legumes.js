@@ -3,8 +3,9 @@ import React, { useState, useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../FirebaseConfig';
+import styles from '../estilos/PaginasStyles.js';
 
-export default function Vegetais({ navigation }) {
+export default function Legumes({ navigation }) {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -13,10 +14,10 @@ export default function Vegetais({ navigation }) {
 
   const carregarDados = async () => {
     try {
-      const querySnapshot = await getDocs(collection(db, 'Vegetais'));
-      const vegetais = [];
+      const querySnapshot = await getDocs(collection(db, 'Legumes'));
+      const legumes = [];
       querySnapshot.forEach((doc) => {
-        vegetais.push({
+        legumes.push({
           id: doc.id,
           titulo: doc.data().titulo,
           descricao: doc.data().descricao,
@@ -24,7 +25,7 @@ export default function Vegetais({ navigation }) {
           imagem: doc.data().imagem
         });
       });
-      setData(vegetais);
+      setData(legumes);
     } catch (error) {
       console.error("Erro ao carregar dados", error);
     }
@@ -32,7 +33,7 @@ export default function Vegetais({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.titulo}>Legumes Frescos 🥦</Text>
+      <Text style={styles.titulo}>Legumes Frescos 🥕</Text>
       <FlatList
         data={data}
         keyExtractor={item => item.id}
@@ -51,59 +52,3 @@ export default function Vegetais({ navigation }) {
     </SafeAreaView>
   );
 }
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#FFF3E2',
-    paddingTop: 40,
-    paddingHorizontal: 16,
-  },
-  titulo: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    color: '#FF8C42',
-    textAlign: 'center',
-    marginBottom: 16,
-  },
-  lista: {
-    paddingBottom: 20,
-  },
-  card: {
-    backgroundColor: '#FFD8B8',
-    borderRadius: 12,
-    marginVertical: 10,
-    padding: 12,
-    flexDirection: 'row',
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOpacity: 0.1,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  imagem: {
-    width: 100,
-    height: 100,
-    borderRadius: 10,
-    marginRight: 14,
-  },
-  info: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  nome: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333',
-  },
-  descricao: {
-    fontSize: 14,
-    color: '#666',
-    marginVertical: 4,
-  },
-  preco: {
-    fontSize: 16,
-    color: '#FF8C42',
-    fontWeight: '600',
-  },
-});

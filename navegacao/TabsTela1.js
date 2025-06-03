@@ -5,11 +5,9 @@ import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
-import About from '../telas/About';
 import Inicial from '../telas/Inicial';
 import User from '../telas/User';
 import Carrinho from '../telas/Carrinho';
-
 
 export default function TabsTela1() {
     const Tab = createBottomTabNavigator();
