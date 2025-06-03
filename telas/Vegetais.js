@@ -42,7 +42,7 @@ export default function Vegetais({ navigation }) {
           <View style={styles.card}>
             <Image source={{ uri: item.imagem }} style={styles.imagem} />
             <View style={styles.info}>
-              <Text style={styles.nome}>Nome do produto:{item.titulo}</Text>
+              <Text style={styles.nome}>Produto:{item.titulo}</Text>
               <Text style={styles.descricao}>Descrição:{item.descricao}</Text>
               <Text style={styles.preco}>R$:{item.preco}</Text>
             </View>
